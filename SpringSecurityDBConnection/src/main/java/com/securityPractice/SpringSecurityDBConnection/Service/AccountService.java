@@ -1,5 +1,11 @@
 package com.securityPractice.SpringSecurityDBConnection.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -80,5 +86,32 @@ public class AccountService {
 	public AccountResponseDTO getById(long id) {
 		Account a = jpa.findById(id).orElseThrow(()->new RuntimeException("Id not found"));
 		return toResponse(a);
+	}
+	
+	
+	public List<AccountResponseDTO> getAllAccounts() {
+
+	    List<Account> accounts = jpa.findAll();
+
+	    List<AccountResponseDTO> list = new ArrayList<>();
+
+	    for(Account a : accounts) {
+	        AccountResponseDTO dto = new AccountResponseDTO();
+	        dto.setPhone(a.getPhone());
+	        dto.setFullname(a.getFullname());
+	        dto.setEmail(a.getEmail());
+	        dto.setUsername(a.getUsername());
+	        list.add(dto);
+	    }
+
+	    return list;
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	public String deleteById(long id) {
+		Account account = jpa.findById(id).orElseThrow(()->new RuntimeException("Id not found"));
+		
+		jpa.delete(account);
+		return "Deleted";
 	}
 }
