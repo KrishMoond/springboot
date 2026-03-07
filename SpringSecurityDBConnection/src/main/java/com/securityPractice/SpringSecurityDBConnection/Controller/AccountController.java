@@ -53,7 +53,4 @@ public class AccountController {
 	public String deleteById(@PathVariable long id) {
 		return service.deleteById(id);
 	}
-	
-	
-
 }
