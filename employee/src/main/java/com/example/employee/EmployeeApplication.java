@@ -1,13 +1,13 @@
-package com.student_management_REST_API;
+package com.example.employee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StudentManagementRestApiApplication {
+public class EmployeeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StudentManagementRestApiApplication.class, args);
+		SpringApplication.run(EmployeeApplication.class, args);
 	}
 
 }
